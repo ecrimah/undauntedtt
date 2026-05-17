@@ -164,7 +164,7 @@ export default function Home() {
       {renderBanners()}
 
       {/* Hero Section - God Level Design */}
-      <section className="relative w-full h-[85vh] md:h-[95vh] overflow-hidden bg-black">
+      <section className="relative w-full h-[58vh] sm:h-[72vh] md:h-[95vh] overflow-hidden bg-black">
 
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 right-0 z-30 h-1 bg-white/10">
@@ -235,40 +235,40 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
             {/* Slide Content */}
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-6 md:px-16 max-w-7xl mx-auto h-full mt-[-20px]">
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-5 sm:px-6 md:px-16 max-w-7xl mx-auto h-full sm:mt-[-20px]">
               <div className="max-w-4xl flex flex-col items-center">
                 <div
                   className={`overflow-hidden transition-all duration-700 delay-100 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                 >
-                  <span className="inline-block py-1 px-4 mb-6 text-white/90 text-sm md:text-base tracking-[0.3em] uppercase font-semibold border border-white/20 rounded-full backdrop-blur-md bg-white/5">
+                  <span className="inline-block py-1 px-3 sm:px-4 mb-3 sm:mb-6 text-white/90 text-xs sm:text-sm md:text-base tracking-[0.25em] sm:tracking-[0.3em] uppercase font-semibold border border-white/20 rounded-full backdrop-blur-md bg-white/5">
                     {slide.tag}
                   </span>
                 </div>
 
                 <div className={`transition-all duration-700 delay-200 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-[1.1] drop-shadow-2xl">
+                  <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-3 sm:mb-6 leading-[1.1] drop-shadow-2xl">
                     {slide.heading}
                   </h1>
                 </div>
 
                 <div className={`transition-all duration-700 delay-300 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                  <p className="text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                  <p className="text-sm sm:text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto mb-5 sm:mb-10 font-light leading-relaxed">
                     {slide.subtext}
                   </p>
                 </div>
 
-                <div className={`flex flex-col sm:flex-row items-center justify-center gap-6 transition-all duration-700 delay-400 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className={`flex flex-row items-center justify-center gap-3 sm:gap-6 transition-all duration-700 delay-400 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                   <Link
                     href={slide.cta.href}
-                    className="group relative px-10 py-4 bg-white text-gray-950 rounded-full font-medium text-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] hover:bg-gray-100 hover:scale-105"
+                    className="group relative px-5 sm:px-10 py-2.5 sm:py-4 bg-white text-gray-950 rounded-full font-medium text-sm sm:text-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] hover:bg-gray-100 hover:scale-105"
                   >
-                    <span className="relative z-10 flex items-center gap-2">
+                    <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
                       {slide.cta.text} <i className="ri-arrow-right-line transition-transform group-hover:translate-x-1"></i>
                     </span>
                   </Link>
                   <Link
                     href={slide.cta2.href}
-                    className="group px-10 py-4 bg-white/10 border border-white/30 text-white rounded-full font-medium text-lg backdrop-blur-md hover:bg-white/20 hover:border-white/50 transition-all hover:scale-105"
+                    className="group px-5 sm:px-10 py-2.5 sm:py-4 bg-white/10 border border-white/30 text-white rounded-full font-medium text-sm sm:text-lg backdrop-blur-md hover:bg-white/20 hover:border-white/50 transition-all hover:scale-105"
                   >
                     {slide.cta2.text}
                   </Link>
@@ -279,12 +279,12 @@ export default function Home() {
         ))}
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-4">
+        <div className="absolute bottom-5 sm:bottom-10 left-1/2 -translate-x-1/2 z-20 flex gap-2 sm:gap-4">
           {[0, 1, 2].map((i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-1 transition-all duration-300 ${currentSlide === i ? 'w-12 bg-white' : 'w-6 bg-white/40 hover:bg-white/60'}`}
+              className={`h-1 transition-all duration-300 ${currentSlide === i ? 'w-8 sm:w-12 bg-white' : 'w-4 sm:w-6 bg-white/40 hover:bg-white/60'}`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
@@ -300,14 +300,14 @@ export default function Home() {
       </section>
 
       {homeCategories.length > 0 && (
-      <section className="py-20 md:py-32 bg-white relative overflow-hidden">
+      <section className="py-12 sm:py-20 md:py-32 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-          <AnimatedSection className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <AnimatedSection className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-3 sm:gap-6">
             <div className="relative">
-              <span className="block text-sm font-medium tracking-[0.2em] text-gray-500 mb-3 uppercase">Olfactory Families</span>
-              <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-gray-900 leading-[1.1]">
+              <span className="block text-xs sm:text-sm font-medium tracking-[0.2em] text-gray-500 mb-2 sm:mb-3 uppercase">Olfactory Families</span>
+              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl text-gray-900 leading-[1.1]">
                 Shop by <span className="italic text-gray-400">Category</span>
               </h2>
             </div>
@@ -315,16 +315,16 @@ export default function Home() {
               <p className="hidden md:block text-gray-500 max-w-xs text-right font-light leading-relaxed">
                 Explore our curated jewelry collection, organised by style and category.
               </p>
-              <Link href="/categories" className="group flex items-center justify-center w-14 h-14 rounded-full border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300">
+              <Link href="/categories" className="group hidden sm:flex items-center justify-center w-14 h-14 rounded-full border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300">
                 <i className="ri-arrow-right-line text-xl transition-transform group-hover:translate-x-1"></i>
               </Link>
             </div>
           </AnimatedSection>
 
-          <AnimatedGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <AnimatedGrid className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
               {homeCategories.map((category) => (
               <Link href={`/shop?category=${encodeURIComponent(category.slug)}`} key={category.id} className="group block h-full w-full">
-                <div className="relative aspect-[3/4] overflow-hidden isolate bg-gray-900 shadow-2xl rounded-3xl">
+                <div className="relative aspect-[3/4] overflow-hidden isolate bg-gray-900 shadow-lg sm:shadow-2xl rounded-2xl sm:rounded-3xl">
 
                   <div className="absolute inset-0 transition-transform duration-[1500ms] ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100">
                     <Image
@@ -332,7 +332,7 @@ export default function Home() {
                       alt={category.name}
                       fill
                       className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1200px) 50vw, 25vw"
                       unoptimized={category.image.startsWith('http')}
                     />
                   </div>
@@ -348,10 +348,10 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent opacity-60"></div>
 
                   {/* Content Container */}
-                  <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                  <div className="absolute inset-0 p-3 sm:p-6 md:p-8 flex flex-col justify-end z-10">
 
                     {/* Floating 'Explore' Tag - Reveals on Hover */}
-                    <div className="absolute top-8 right-8 overflow-hidden">
+                    <div className="absolute top-3 right-3 sm:top-8 sm:right-8 overflow-hidden hidden sm:block">
                       <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-[10px] font-bold text-white tracking-widest uppercase transform translate-y-[-150%] opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                         Explore <i className="ri-arrow-right-line"></i>
                       </span>
@@ -359,24 +359,28 @@ export default function Home() {
 
                     {/* Category Title */}
                     <div className="overflow-hidden">
-                      <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-[0.9] mb-3 transform transition-transform duration-700 ease-out group-hover:-translate-y-2 drop-shadow-xl">
+                      <h3 className="font-serif text-base sm:text-3xl md:text-4xl lg:text-5xl text-white leading-[0.95] sm:leading-[0.9] mb-1.5 sm:mb-3 transform transition-transform duration-700 ease-out group-hover:-translate-y-2 drop-shadow-xl">
                         {category.display_name || category.name}
                       </h3>
                     </div>
 
                     {/* Decorative Line */}
-                    <div className="h-[1px] w-12 bg-white/60 mb-4 transition-all duration-700 ease-out group-hover:w-full group-hover:bg-white/90"></div>
+                    <div className="h-[1px] w-8 sm:w-12 bg-white/60 mb-2 sm:mb-4 transition-all duration-700 ease-out group-hover:w-full group-hover:bg-white/90"></div>
 
                     {/* Subtitle / Description */}
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden hidden sm:block">
                       <p className="text-white/80 font-light text-sm tracking-widest uppercase transform translate-y-full opacity-0 transition-all duration-700 ease-out group-hover:translate-y-0 group-hover:opacity-100 delay-100">
                         {category.subtitle}
                       </p>
                     </div>
+                    {/* Mobile static subtitle (always visible since hover is unreliable on touch) */}
+                    <p className="sm:hidden text-white/70 font-light text-[10px] tracking-wider uppercase line-clamp-1">
+                      {category.subtitle}
+                    </p>
                   </div>
 
                   {/* Premium Border Frame Effect */}
-                  <div className="absolute inset-5 border border-white/20 scale-[0.95] opacity-0 transition-all duration-700 ease-out group-hover:scale-100 group-hover:opacity-100 pointer-events-none z-20">
+                  <div className="absolute inset-3 sm:inset-5 border border-white/20 scale-[0.95] opacity-0 transition-all duration-700 ease-out group-hover:scale-100 group-hover:opacity-100 pointer-events-none z-20">
                     {/* Corner Accents */}
                     <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/60"></div>
                     <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/60"></div>
@@ -401,13 +405,13 @@ export default function Home() {
           </AnimatedSection>
 
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 md:gap-8">
               {[...Array(4)].map((_, i) => (
                 <ProductCardSkeleton key={i} />
               ))}
             </div>
           ) : (
-            <AnimatedGrid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+            <AnimatedGrid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
               {featuredProducts.map((product) => {
                 const variants = product.product_variants || [];
                 const hasVariants = variants.length > 0;

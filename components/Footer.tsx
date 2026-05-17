@@ -55,20 +55,20 @@ export default function Footer() {
   const socialYoutube = getSetting('social_youtube') || socialDefaults.youtube;
 
   return (
-    <footer className="relative mt-12 z-0">
+    <footer className="relative mt-8 sm:mt-12 z-0">
 
       {/* Footer Background Shape */}
-      <div className="absolute inset-0 bg-blue-950 rounded-t-[3rem] -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-blue-950 rounded-t-[2rem] sm:rounded-t-[3rem] -z-10 overflow-hidden">
         {/* Decorative elements inside footer bg */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-800 to-transparent opacity-30"></div>
       </div>
 
-      <div className="text-white pt-16 pb-12">
+      <div className="text-white pt-8 pb-6 sm:pt-16 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 lg:gap-12">
 
             {/* Brand Column */}
-            <div className="lg:col-span-1 space-y-6">
+            <div className="lg:col-span-1 space-y-3 sm:space-y-6">
               <Link href="/" className="inline-block group" aria-label={`${wordmark} — home`}>
                 <BrandLogo
                   height={44}
@@ -80,7 +80,7 @@ export default function Footer() {
                 {[siteTagline, contactAddress || null, contactPhone ? `Tel: ${contactPhone}` : null, (contactWhatsapp && contactWhatsapp !== contactPhone) ? `WhatsApp: ${contactWhatsapp}` : null].filter(Boolean).join(' · ') || `${siteTagline}.`}
               </p>
 
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-wrap gap-2 sm:gap-3 pt-1 sm:pt-2">
                 {[
                   { link: socialInstagram, icon: 'ri-instagram-line', label: 'Instagram' },
                   { link: socialYoutube, icon: 'ri-youtube-fill', label: 'YouTube' },
@@ -95,7 +95,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="w-10 h-10 bg-blue-900/40 border border-blue-800 rounded-full flex items-center justify-center text-blue-300 hover:bg-blue-500 hover:text-blue-950 hover:border-blue-500 transition-all hover:-translate-y-1"
+                    className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-900/40 border border-blue-800 rounded-full flex items-center justify-center text-blue-300 hover:bg-blue-500 hover:text-blue-950 hover:border-blue-500 transition-all hover:-translate-y-1 text-sm sm:text-base"
                   >
                     <i className={social.icon}></i>
                   </a>
@@ -104,11 +104,11 @@ export default function Footer() {
             </div>
 
             {/* Links Sections */}
-            <div className="lg:col-span-3 grid md:grid-cols-3 gap-8 lg:gap-12 pl-0 lg:pl-12">
+            <div className="lg:col-span-3 grid grid-cols-3 md:grid-cols-3 gap-4 sm:gap-8 lg:gap-12 pl-0 lg:pl-12">
 
-              <div className="space-y-6">
-                <h4 className="font-serif text-xl font-bold text-white">Shop</h4>
-                <ul className="space-y-3 text-blue-100/60 text-sm">
+              <div className="space-y-3 sm:space-y-6">
+                <h4 className="font-serif text-base sm:text-xl font-bold text-white">Shop</h4>
+                <ul className="space-y-2 sm:space-y-3 text-blue-100/60 text-xs sm:text-sm">
                   <li><Link href="/shop" className="hover:text-blue-300 transition-colors">All Products</Link></li>
                   <li><Link href="/categories" className="hover:text-blue-300 transition-colors">Collections</Link></li>
                   <li><Link href="/shop?sort=newest" className="hover:text-blue-300 transition-colors">New Arrivals</Link></li>
@@ -116,9 +116,9 @@ export default function Footer() {
                 </ul>
               </div>
 
-              <div className="space-y-6">
-                <h4 className="font-serif text-xl font-bold text-white">Support</h4>
-                <ul className="space-y-3 text-blue-100/60 text-sm">
+              <div className="space-y-3 sm:space-y-6">
+                <h4 className="font-serif text-base sm:text-xl font-bold text-white">Support</h4>
+                <ul className="space-y-2 sm:space-y-3 text-blue-100/60 text-xs sm:text-sm">
                   <li><Link href="/contact" className="hover:text-blue-300 transition-colors">Contact Us</Link></li>
                   <li><Link href="/order-tracking" className="hover:text-blue-300 transition-colors">Track Order</Link></li>
                   <li><Link href="/shipping" className="hover:text-blue-300 transition-colors">Shipping & Delivery</Link></li>
@@ -126,9 +126,9 @@ export default function Footer() {
                 </ul>
               </div>
 
-              <div className="space-y-6">
-                <h4 className="font-serif text-xl font-bold text-white">Company</h4>
-                <ul className="space-y-3 text-blue-100/60 text-sm">
+              <div className="space-y-3 sm:space-y-6">
+                <h4 className="font-serif text-base sm:text-xl font-bold text-white">Company</h4>
+                <ul className="space-y-2 sm:space-y-3 text-blue-100/60 text-xs sm:text-sm">
                   <li><Link href="/about" className="hover:text-blue-300 transition-colors">Our Story</Link></li>
                   <li><Link href="/privacy" className="hover:text-blue-300 transition-colors">Privacy Policy</Link></li>
                   <li><Link href="/terms" className="hover:text-blue-300 transition-colors">Terms of Service</Link></li>
@@ -139,7 +139,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="border-t border-blue-900/50 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-blue-500/40">
+          <div className="border-t border-blue-900/50 mt-6 sm:mt-12 pt-4 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-3 sm:gap-4 text-xs text-blue-500/40">
             <p>&copy; {new Date().getFullYear()} {siteName}. All rights reserved.</p>
             <div className="flex gap-4 opacity-40">
               <i className="ri-visa-line text-2xl"></i>
