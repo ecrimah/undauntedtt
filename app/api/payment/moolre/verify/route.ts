@@ -81,6 +81,11 @@ export async function POST(req: Request) {
             }, { status: 503 });
         }
 
+        // Use the externalref persisted by the initiate route (with its
+        // retry suffix), falling back to the bare order number for legacy
+        // orders. Querying Moolre with the wrong ref returns "not found".
+        const externalRefToCheck: string = order.metadata?.moolre_externalref || orderNumber;
+
         try {
             const checkResponse = await fetch('https://api.moolre.com/embed/status', {
                 method: 'POST',
@@ -89,7 +94,7 @@ export async function POST(req: Request) {
                     'X-API-USER': process.env.MOOLRE_API_USER,
                     'X-API-PUBKEY': process.env.MOOLRE_API_PUBKEY
                 },
-                body: JSON.stringify({ externalref: orderNumber })
+                body: JSON.stringify({ externalref: externalRefToCheck })
             });
 
             const checkResult = await checkResponse.json();

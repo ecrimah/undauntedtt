@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         // NEVER trust the amount from the client.
         const { data: order, error: orderError } = await supabaseAdmin
             .from('orders')
-            .select('id, order_number, total, email, payment_status')
+            .select('id, order_number, total, email, payment_status, metadata')
             .or(`id.eq.${orderId},order_number.eq.${orderId}`)
             .single();
 
@@ -63,8 +63,33 @@ export async function POST(req: Request) {
         const requestUrl = new URL(req.url);
         const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || requestUrl.origin).replace(/\/+$/, '');
 
-        // Generate a unique external reference for Moolre
+        // Generate a unique external reference for Moolre. We append a retry
+        // suffix so re-payments don't clash with previous attempts at Moolre.
         const uniqueRef = `${orderRef}-R${Date.now()}`;
+
+        // Persist the latest payment-attempt reference so the verify and
+        // callback endpoints can look the transaction up at Moolre using
+        // the exact `externalref` we sent. Without this, verify would query
+        // Moolre with the bare order number and never find the transaction.
+        const mergedMetadata = {
+            ...(order.metadata || {}),
+            payment_method: 'moolre',
+            moolre_externalref: uniqueRef,
+            payment_attempted_at: new Date().toISOString(),
+        };
+
+        const { error: orderUpdateError } = await supabaseAdmin
+            .from('orders')
+            .update({
+                payment_status: 'pending',
+                metadata: mergedMetadata,
+            })
+            .eq('id', order.id);
+
+        if (orderUpdateError) {
+            console.error('[Payment] Failed to persist externalref:', orderUpdateError.message);
+            return NextResponse.json({ success: false, message: 'Failed to prepare payment' }, { status: 500 });
+        }
 
         // Moolre Payload
         const payload = {

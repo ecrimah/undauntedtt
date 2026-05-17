@@ -111,17 +111,28 @@ export async function POST(req: Request) {
 
         // ============================================================
         // SECURITY: Strict success validation
-        // Require BOTH api status AND transaction status to be success,
-        // OR the message explicitly indicates success (as fallback only 
-        // when both status fields are present and consistent).
+        //
+        // Moolre's `status: 1` only means the API call was received — it
+        // stays 1 even when the payment itself failed. Real success
+        // requires BOTH the top-level api status AND the inner txtstatus
+        // to be 1, with no failure keywords in the message. Trusting just
+        // one field would mark failed/cancelled payments as paid.
         // ============================================================
-        const apiOk = (apiStatus === 1 || apiStatus === '1');
-        const txOk = (txStatus === 1 || txStatus === '1');
-        const messageOk = messageStr.includes('successful') || messageStr.includes('success');
+        const hasFailureSignal =
+            txStatus === 0 || txStatus === '0' ||
+            txStatus === -1 || txStatus === '-1' ||
+            messageStr.includes('fail') ||
+            messageStr.includes('cancel') ||
+            messageStr.includes('declin') ||
+            messageStr.includes('error');
 
-        // Require at least api status OR tx status to be explicitly successful
-        // AND the message must not indicate failure
-        const isSuccess = (apiOk || txOk) && !messageStr.includes('fail') && !messageStr.includes('error');
+        const hasSuccessSignal =
+            ((apiStatus === 1 || apiStatus === '1') && (txStatus === 1 || txStatus === '1')) ||
+            messageStr.includes('successful') ||
+            messageStr.includes('completed') ||
+            messageStr.includes('paid');
+
+        const isSuccess = hasSuccessSignal && !hasFailureSignal;
 
         if (isSuccess) {
             console.log(`[Callback] Payment SUCCESS for Order ${merchantOrderRef}`);
@@ -205,14 +216,27 @@ export async function POST(req: Request) {
             // Payment failed
             console.log(`[Callback] Payment FAILED for ${merchantOrderRef} | Status: ${apiStatus} | TX: ${txStatus}`);
 
+            // Fetch existing metadata first so we don't clobber cart/customer
+            // diagnostics already stored on the order.
+            const { data: failedOrderMeta } = await supabaseAdmin
+                .from('orders')
+                .select('metadata')
+                .eq('order_number', merchantOrderRef)
+                .single();
+
+            const mergedFailureMetadata = {
+                ...(failedOrderMeta?.metadata || {}),
+                moolre_reference: moolreReference,
+                failure_reason: body.message || 'Payment failed',
+                failure_code: body.code || null,
+                failed_at: new Date().toISOString(),
+            };
+
             await supabaseAdmin
                 .from('orders')
                 .update({
                     payment_status: 'failed',
-                    metadata: {
-                        moolre_reference: moolreReference,
-                        failure_reason: body.message || 'Payment failed'
-                    }
+                    metadata: mergedFailureMetadata
                 })
                 .eq('order_number', merchantOrderRef);
 
