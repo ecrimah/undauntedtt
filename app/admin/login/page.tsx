@@ -1,20 +1,39 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { useRecaptcha } from '@/hooks/useRecaptcha';
 import BrandLogo from '@/components/BrandLogo';
 
+// Browsers silently drop cookies with the `Secure` attribute over plain HTTP
+// (e.g. localhost), which would otherwise leave the admin in an infinite
+// login loop. Only mark cookies Secure when actually served over HTTPS.
+function buildAuthCookie(name: string, value: string, maxAge: number): string {
+  const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+  return `${name}=${value}; path=/; max-age=${maxAge}; SameSite=Lax${isHttps ? '; Secure' : ''}`;
+}
+
 export default function AdminLoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const { getToken, verifying } = useRecaptcha();
+
+  // Surface middleware-redirect reasons (?error=session_expired | unauthorized)
+  useEffect(() => {
+    const reason = searchParams.get('error');
+    if (reason === 'session_expired') {
+      setError('Your session expired. Please sign in again.');
+    } else if (reason === 'unauthorized') {
+      setError('This account does not have admin access. Contact your administrator.');
+    }
+  }, [searchParams]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,11 +57,13 @@ export default function AdminLoginPage() {
       if (error) throw error;
 
       if (data.session) {
-        // Set auth cookie so middleware can verify the session server-side
-        document.cookie = `sb-access-token=${data.session.access_token}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax; Secure`;
-        document.cookie = `sb-refresh-token=${data.session.refresh_token}; path=/; max-age=${60 * 60 * 24 * 30}; SameSite=Lax; Secure`;
+        // Set auth cookies so middleware can verify the session server-side.
+        // Use `Secure` only on HTTPS so localhost dev keeps working.
+        document.cookie = buildAuthCookie('sb-access-token', data.session.access_token, 60 * 60 * 24 * 7);
+        document.cookie = buildAuthCookie('sb-refresh-token', data.session.refresh_token, 60 * 60 * 24 * 30);
 
-        router.push('/admin');
+        const redirectTo = searchParams.get('redirect') || '/admin';
+        router.push(redirectTo);
         router.refresh();
       }
     } catch (err: any) {

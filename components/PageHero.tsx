@@ -37,7 +37,7 @@ export default function PageHero({ title, subtitle, backgroundImage }: PageHeroP
                     </span>
                 </div>
 
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif italic font-medium text-white mb-8 leading-[1.1] drop-shadow-2xl animate-in slide-in-from-bottom-4 duration-700 delay-100">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic font-medium text-white mb-8 leading-[1.1] drop-shadow-2xl animate-in slide-in-from-bottom-4 duration-700 delay-100">
                     {title}
                 </h1>
 
