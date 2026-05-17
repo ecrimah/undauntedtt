@@ -82,7 +82,7 @@ export default function Header() {
                   className="flex items-center select-none min-w-0"
                   aria-label={`${wordmark} — home`}
                 >
-                  <BrandLogo height={48} priority className="sm:!h-14" alt={`${wordmark} — home`} />
+                  <BrandLogo height={32} priority className="sm:!h-10" alt={`${wordmark} — home`} />
                 </Link>
               </div>
 
@@ -220,7 +220,7 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label={`${wordmark} — home`}
               >
-                <BrandLogo height={40} alt={wordmark} />
+                <BrandLogo height={28} alt={wordmark} />
               </Link>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}

@@ -71,9 +71,9 @@ export default function Footer() {
             <div className="lg:col-span-1 space-y-6">
               <Link href="/" className="inline-block group" aria-label={`${wordmark} — home`}>
                 <BrandLogo
-                  height={72}
+                  height={44}
                   alt={`${wordmark} — home`}
-                  className="drop-shadow-lg group-hover:scale-105 transition-transform duration-300 origin-left sm:!h-20"
+                  className="drop-shadow-lg group-hover:scale-105 transition-transform duration-300 origin-left sm:!h-14"
                 />
               </Link>
               <p className="text-blue-200/60 leading-relaxed text-sm">

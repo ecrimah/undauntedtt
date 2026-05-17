@@ -63,7 +63,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data: productsData, error: productsError } = await supabase
+        const { data: featuredData, error: featuredError } = await supabase
           .from('products')
           .select('*, product_variants(*), product_images(*)')
           .eq('status', 'active')
@@ -71,8 +71,23 @@ export default function Home() {
           .order('created_at', { ascending: false })
           .limit(8);
 
-        if (productsError) throw productsError;
-        setFeaturedProducts(productsData || []);
+        if (featuredError) throw featuredError;
+
+        // Graceful fallback: if no products are explicitly featured yet,
+        // surface the latest active products so the homepage never looks empty.
+        let productsData = featuredData ?? [];
+        if (productsData.length === 0) {
+          const { data: latestData, error: latestError } = await supabase
+            .from('products')
+            .select('*, product_variants(*), product_images(*)')
+            .eq('status', 'active')
+            .order('created_at', { ascending: false })
+            .limit(8);
+          if (latestError) throw latestError;
+          productsData = latestData ?? [];
+        }
+
+        setFeaturedProducts(productsData);
 
         const { data: catRows, error: catErr } = await supabase
           .from('categories')

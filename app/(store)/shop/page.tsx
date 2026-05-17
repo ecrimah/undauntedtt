@@ -7,7 +7,7 @@ import ProductCard, { type ColorVariant } from '@/components/ProductCard';
 import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton';
 import { getColorHex } from '@/components/ProductCard';
 import { supabase } from '@/lib/supabase';
-import { cachedQuery } from '@/lib/query-cache';
+import { cachedQuery, invalidateCachePrefix } from '@/lib/query-cache';
 import PageHero from '@/components/PageHero';
 
 function ShopContent() {
@@ -19,6 +19,8 @@ function ShopContent() {
   const [categories, setCategories] = useState<any[]>([{ id: 'all', name: 'All Products', count: 0 }]);
   const [loading, setLoading] = useState(true);
   const [totalProducts, setTotalProducts] = useState(0);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [refreshTick, setRefreshTick] = useState(0);
 
   // Filters
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -60,6 +62,7 @@ function ShopContent() {
   useEffect(() => {
     async function fetchProducts() {
       setLoading(true);
+      setFetchError(null);
       try {
         const search = searchParams.get('search');
 
@@ -193,14 +196,23 @@ function ShopContent() {
         }
       } catch (err: unknown) {
         const e = err as { message?: string; code?: string; details?: string };
-        console.error('Error fetching products:', e?.message || err, e?.code || '', e?.details || '');
+        const msg = e?.message || (err instanceof Error ? err.message : 'Unable to load products');
+        console.error('Error fetching products:', msg, e?.code || '', e?.details || '');
+        setFetchError(msg);
+        setProducts([]);
+        setTotalProducts(0);
       } finally {
         setLoading(false);
       }
     }
 
     fetchProducts();
-  }, [selectedCategory, priceRange, selectedRating, sortBy, page, searchParams, categories]);
+  }, [selectedCategory, priceRange, selectedRating, sortBy, page, searchParams, categories, refreshTick]);
+
+  const handleRetry = () => {
+    invalidateCachePrefix('shop:');
+    setRefreshTick((t) => t + 1);
+  };
 
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
@@ -417,24 +429,51 @@ function ShopContent() {
                     ))}
                   </div>
 
-                  {products.length === 0 && (
+                  {products.length === 0 && fetchError && (
+                    <div className="text-center py-20">
+                      <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 bg-red-50 rounded-full">
+                        <i className="ri-error-warning-line text-4xl text-red-500"></i>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">We couldn&apos;t load products</h3>
+                      <p className="text-gray-600 mb-2">There was a problem reaching our catalogue. Please try again.</p>
+                      <p className="text-xs text-gray-400 mb-8 break-all max-w-md mx-auto">{fetchError}</p>
+                      <button
+                        onClick={handleRetry}
+                        className="inline-flex items-center bg-gray-900 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                      >
+                        <i className="ri-refresh-line mr-2"></i>
+                        Retry
+                      </button>
+                    </div>
+                  )}
+
+                  {products.length === 0 && !fetchError && (
                     <div className="text-center py-20">
                       <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 bg-gray-100 rounded-full">
                         <i className="ri-inbox-line text-4xl text-gray-400"></i>
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">No Products Found</h3>
-                      <p className="text-gray-600 mb-8">Try adjusting your filters to find what you're looking for</p>
-                      <button
-                        onClick={() => {
-                          setSelectedCategory('all');
-                          setPriceRange([0, 5000]);
-                          setSelectedRating(0);
-                          setPage(1);
-                        }}
-                        className="inline-flex items-center bg-gray-900 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
-                      >
-                        Clear All Filters
-                      </button>
+                      <p className="text-gray-600 mb-8">Try adjusting your filters to find what you&apos;re looking for</p>
+                      <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
+                        <button
+                          onClick={() => {
+                            setSelectedCategory('all');
+                            setPriceRange([0, 5000]);
+                            setSelectedRating(0);
+                            setPage(1);
+                          }}
+                          className="inline-flex items-center bg-gray-900 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                        >
+                          Clear All Filters
+                        </button>
+                        <button
+                          onClick={handleRetry}
+                          className="inline-flex items-center bg-white border border-gray-300 hover:border-gray-900 text-gray-700 hover:text-gray-900 px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                        >
+                          <i className="ri-refresh-line mr-2"></i>
+                          Refresh
+                        </button>
+                      </div>
                     </div>
                   )}
                 </>
