@@ -143,6 +143,7 @@
   "share_target": {
     "action": "/shop",
     "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
     "params": {
       "title": "search",
       "text": "search",

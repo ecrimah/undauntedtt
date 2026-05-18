@@ -17,8 +17,12 @@ export default function PWAPrompt() {
       ? (Date.now() - parseInt(lastPromptTime)) / (1000 * 60 * 60 * 24)
       : 999;
 
-    if (daysSinceLastPrompt > 7) {
-      const timer = setTimeout(() => setShowPrompt(true), 5000);
+    // Cooled down to 3 days so first-time visitors see our custom install
+    // UI quickly. As soon as the user clicks Install (or Maybe Later), we
+    // call `prompt()` and the Chromium "Banner not shown" dev-tools notice
+    // is resolved for the rest of that page session.
+    if (daysSinceLastPrompt > 3) {
+      const timer = setTimeout(() => setShowPrompt(true), 4000);
       return () => clearTimeout(timer);
     }
   }, [canInstall, isInstalled]);

@@ -1,9 +1,40 @@
 // PWA service worker
-const CACHE_VERSION = 'store-v2.7';
+const CACHE_VERSION = 'store-v2.9';
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const API_CACHE = `api-${CACHE_VERSION}`;
+
+/**
+ * Whether a response is safe to put into the Cache API.
+ * The Cache API throws on partial (206) responses and on opaque-redirect
+ * responses, so we filter those out. Opaque ("no-cors") responses *can*
+ * be cached but their status is always 0, so we still allow them.
+ */
+function isCacheable(response) {
+  if (!response) return false;
+  if (response.type === 'opaqueredirect') return false;
+  if (response.status === 206) return false;
+  // Allow `opaque` (status 0) responses for cross-origin assets, plus
+  // any standard 2xx that isn't a partial response.
+  return response.type === 'opaque' || (response.status >= 200 && response.status < 300);
+}
+
+/**
+ * Wrap cache.put() so a single bad response can't reject the surrounding
+ * promise chain (which used to surface as the noisy "Failed to execute
+ * 'put' on 'Cache': Partial response (status code 206) is unsupported"
+ * error in the console).
+ */
+async function safeCachePut(cache, request, response) {
+  if (!isCacheable(response)) return;
+  try {
+    await cache.put(request, response);
+  } catch (err) {
+    // Swallow — caching is best-effort.
+    console.warn('[SW] cache.put skipped:', err?.message || err);
+  }
+}
 
 // Core app shell files to pre-cache
 const STATIC_ASSETS = [
@@ -108,8 +139,8 @@ self.addEventListener('fetch', (event) => {
         return cache.match(request).then((cached) => {
           if (cached) return cached;
           return fetch(request).then((response) => {
-            if (response.ok) {
-              cache.put(request, response.clone());
+            if (isCacheable(response)) {
+              safeCachePut(cache, request, response.clone());
               trimCache(IMAGE_CACHE, IMAGE_CACHE_LIMIT);
             }
             return response;
@@ -131,10 +162,10 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (response.ok) {
+          if (isCacheable(response)) {
             const responseClone = response.clone();
             caches.open(API_CACHE).then((cache) => {
-              cache.put(request, responseClone);
+              safeCachePut(cache, request, responseClone);
               trimCache(API_CACHE, API_CACHE_LIMIT);
             });
           }
@@ -162,9 +193,9 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       caches.match(request).then((cached) => {
         return cached || fetch(request).then((response) => {
-          if (response.ok) {
+          if (isCacheable(response)) {
             const responseClone = response.clone();
-            caches.open(STATIC_CACHE).then((cache) => cache.put(request, responseClone));
+            caches.open(STATIC_CACHE).then((cache) => safeCachePut(cache, request, responseClone));
           }
           return response;
         }).catch(() => cached);
@@ -178,10 +209,10 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (response.ok) {
+          if (isCacheable(response)) {
             const responseClone = response.clone();
             caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, responseClone);
+              safeCachePut(cache, request, responseClone);
               trimCache(DYNAMIC_CACHE, DYNAMIC_CACHE_LIMIT);
             });
           }
@@ -200,10 +231,10 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(request)
       .then((response) => {
-        if (response.ok) {
+        if (isCacheable(response)) {
           const responseClone = response.clone();
           caches.open(DYNAMIC_CACHE).then((cache) => {
-            cache.put(request, responseClone);
+            safeCachePut(cache, request, responseClone);
           });
         }
         return response;

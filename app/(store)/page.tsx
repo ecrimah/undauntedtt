@@ -184,17 +184,17 @@ export default function Home() {
         {[
           {
             image: '/hero-slide-1.png',
-            alt: 'Sapphire and gold tiara on navy velvet — Undaunted Treasure Trove showstopper jewelry',
+            alt: 'Model wearing layered gold hoop earrings — statement jewelry from Undaunted Treasure Trove',
             tag: 'New arrivals',
             heading: <>Treasures, <br /><span className="italic font-light text-amber-100">curated for you</span></>,
-            subtext: 'Handpicked jewelry — earrings, necklaces, bracelets and more — delivered across Ghana.',
+            subtext: 'Handpicked earrings, necklaces, bracelets and more — delivered across Ghana.',
             cta: { text: 'Shop now', href: '/shop' },
             cta2: { text: 'Our story', href: '/about' },
             position: 'object-center'
           },
           {
             image: '/hero-slide-2.png',
-            alt: 'Emerald-cut diamond necklace, earrings and ring set — statement jewelry from Undaunted Treasure Trove',
+            alt: 'Model in chunky gold hoops and a delicate initial pendant — Undaunted Treasure Trove signature looks',
             tag: 'Statement pieces',
             heading: <>Bold, beautiful, <br /><span className="italic font-light text-amber-100">unmistakably you</span></>,
             subtext: 'Statement jewelry that makes everyday outfits feel special. Wholesale available.',
@@ -204,10 +204,10 @@ export default function Home() {
           },
           {
             image: '/hero-slide-3.png',
-            alt: 'Gold halo pendant necklace on champagne silk — everyday elegance from Undaunted Treasure Trove',
-            tag: 'Crafted with care',
-            heading: <>Everyday <br /><span className="italic font-light text-amber-100">elegance</span></>,
-            subtext: 'From classic gold tones to modern minimalist sets — styled in Adenta, shipped nationwide.',
+            alt: 'Model wearing a heavy gold curb-link back chain — bold body jewelry from Undaunted Treasure Trove',
+            tag: 'Body chains',
+            heading: <>Worn <br /><span className="italic font-light text-amber-100">your way</span></>,
+            subtext: 'Hand chains, waist chains and back chains — sculptural pieces, styled in Adenta, shipped nationwide.',
             cta: { text: 'Shop collection', href: '/shop' },
             cta2: { text: 'Contact', href: '/contact' },
             position: 'object-center'
