@@ -21,9 +21,11 @@ const siteName = getSiteName();
 const titleSuffix = getDefaultTitleSuffix();
 const metaDesc = getDefaultMetaDescription();
 
-const THEME_LIGHT = '#2563eb'; // blue-600 (URL bar tint, light)
-const THEME_DARK = '#172554';  // blue-950 (URL bar tint, dark)
-const TILE_COLOR = '#172554';
+// Brand palette — keep in sync with tailwind.config.js `brand.*` and
+// public/manifest.json. Bronze is the URL-bar tint on Android/iOS.
+const THEME_LIGHT = '#8e623b'; // brand.bronze (URL bar tint, light)
+const THEME_DARK = '#5e3f1f';  // darker bronze (URL bar tint, dark)
+const TILE_COLOR = '#8e623b';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -398,10 +400,10 @@ export default function RootLayout({
         />
       )}
 
-      <body className="antialiased font-sans overflow-x-hidden pwa-body">
+      <body className="antialiased font-sans overflow-x-hidden pwa-body bg-brand-cream text-brand-ink">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:px-6 focus:py-3 focus:bg-blue-600 focus:text-white focus:rounded-lg focus:font-semibold focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10000] focus:px-6 focus:py-3 focus:bg-brand-bronze focus:text-brand-cream focus:rounded-lg focus:font-semibold focus:shadow-lg"
         >
           Skip to main content
         </a>

@@ -217,7 +217,7 @@ function ShopContent() {
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-brand-cream">
       <PageHero
         title="Shop All Products"
         subtitle="Browse our jewelry collection — necklaces, earrings, bracelets and more"
@@ -225,30 +225,30 @@ function ShopContent() {
       />
 
       {/* Mobile Filter Toggle */}
-      <div className="lg:hidden bg-white border-b border-gray-200 py-4 px-4 sticky top-[72px] z-20">
+      <div className="lg:hidden bg-brand-cream border-b border-brand-taupe/40 py-4 px-4 sticky top-[72px] z-20">
         <div className="flex justify-between items-center">
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="flex items-center space-x-2 text-gray-900 font-medium"
+            className="flex items-center space-x-2 text-brand-ink font-medium"
           >
             <i className="ri-filter-3-line text-xl"></i>
             <span>Filters & Sort</span>
           </button>
-          <span className="text-sm text-gray-500">{totalProducts} Products</span>
+          <span className="text-sm text-brand-ink/60">{totalProducts} Products</span>
         </div>
       </div>
 
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col lg:flex-row gap-8">
-            <aside className={`${isFilterOpen ? 'fixed inset-0 z-50 bg-white overflow-y-auto' : 'hidden'} lg:block lg:w-64 lg:flex-shrink-0`}>
+            <aside className={`${isFilterOpen ? 'fixed inset-0 z-50 bg-brand-cream overflow-y-auto' : 'hidden'} lg:block lg:w-64 lg:flex-shrink-0`}>
               <div className="lg:sticky lg:top-24">
-                <div className="bg-white lg:bg-transparent p-6 lg:p-0">
+                <div className="bg-brand-cream lg:bg-transparent p-6 lg:p-0">
                   <div className="flex items-center justify-between mb-6 lg:hidden">
-                    <h2 className="text-xl font-bold text-gray-900">Filters</h2>
+                    <h2 className="text-xl font-bold text-brand-ink">Filters</h2>
                     <button
                       onClick={() => setIsFilterOpen(false)}
-                      className="w-10 h-10 flex items-center justify-center text-gray-700"
+                      className="w-10 h-10 flex items-center justify-center text-brand-ink/70"
                     >
                       <i className="ri-close-line text-2xl"></i>
                     </button>
@@ -257,7 +257,7 @@ function ShopContent() {
                   <div className="space-y-8">
                     {/* Categories */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-4">Categories</h3>
+                      <h3 className="font-semibold text-brand-ink mb-4">Categories</h3>
                       <div className="space-y-1">
                         <button
                           onClick={() => {
@@ -266,8 +266,8 @@ function ShopContent() {
                             setIsFilterOpen(false);
                           }}
                           className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${selectedCategory === 'all'
-                            ? 'bg-blue-100 text-blue-700 font-medium'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? 'bg-brand-bronze text-brand-cream font-medium'
+                            : 'text-brand-ink/80 hover:bg-brand-caramel/15'
                             }`}
                         >
                           All Products
@@ -289,8 +289,8 @@ function ShopContent() {
                                   // Don't close filter immediately if exploring hierarchy
                                 }}
                                 className={`w-full text-left px-4 py-2 rounded-lg transition-colors flex justify-between items-center ${isSelected
-                                  ? 'bg-blue-50 text-blue-700 font-medium'
-                                  : 'text-gray-700 hover:bg-gray-100'
+                                  ? 'bg-brand-caramel/20 text-brand-bronze font-medium'
+                                  : 'text-brand-ink/80 hover:bg-brand-caramel/15'
                                   }`}
                               >
                                 <span>{parent.name}</span>
@@ -298,7 +298,7 @@ function ShopContent() {
 
                               {/* Subcategories */}
                               {subcategories.length > 0 && (
-                                <div className="ml-4 border-l-2 border-gray-100 pl-2 space-y-1">
+                                <div className="ml-4 border-l-2 border-brand-taupe/30 pl-2 space-y-1">
                                   {subcategories.map(child => (
                                     <button
                                       key={child.id}
@@ -308,8 +308,8 @@ function ShopContent() {
                                         setIsFilterOpen(false);
                                       }}
                                       className={`w-full text-left px-4 py-1.5 rounded-lg text-sm transition-colors ${selectedCategory === child.slug
-                                        ? 'text-blue-700 font-medium bg-blue-50'
-                                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                        ? 'text-brand-bronze font-medium bg-brand-caramel/15'
+                                        : 'text-brand-ink/70 hover:text-brand-ink hover:bg-brand-caramel/15'
                                         }`}
                                     >
                                       {child.name}
@@ -324,8 +324,8 @@ function ShopContent() {
                     </div>
 
                     {/* Price Range */}
-                    <div className="border-t border-gray-200 pt-8">
-                      <h3 className="font-semibold text-gray-900 mb-4">Max Price: GH₵{priceRange[1]}</h3>
+                    <div className="border-t border-brand-taupe/40 pt-8">
+                      <h3 className="font-semibold text-brand-ink mb-4">Max Price: GH₵{priceRange[1]}</h3>
                       <div className="space-y-4">
                         <input
                           type="range"
@@ -337,9 +337,9 @@ function ShopContent() {
                             setPriceRange([0, parseInt(e.target.value)]);
                             setPage(1);
                           }}
-                          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-700"
+                          className="w-full h-2 bg-brand-taupe/40 rounded-lg appearance-none cursor-pointer accent-brand-bronze"
                         />
-                        <div className="flex items-center justify-between text-sm text-gray-600">
+                        <div className="flex items-center justify-between text-sm text-brand-ink/60">
                           <span>GH₵0</span>
                           <span>GH₵5000+</span>
                         </div>
@@ -347,8 +347,8 @@ function ShopContent() {
                     </div>
 
                     {/* Rating */}
-                    <div className="border-t border-gray-200 pt-8">
-                      <h3 className="font-semibold text-gray-900 mb-4">Rating</h3>
+                    <div className="border-t border-brand-taupe/40 pt-8">
+                      <h3 className="font-semibold text-brand-ink mb-4">Rating</h3>
                       <div className="space-y-2">
                         {[4, 3, 2, 1].map(rating => (
                           <button
@@ -358,15 +358,15 @@ function ShopContent() {
                               setPage(1);
                             }}
                             className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${selectedRating === rating
-                              ? 'bg-blue-100 text-blue-700'
-                              : 'text-gray-700 hover:bg-gray-100'
+                              ? 'bg-brand-caramel/20 text-brand-bronze'
+                              : 'text-brand-ink/80 hover:bg-brand-caramel/15'
                               }`}
                           >
                             <div className="flex items-center space-x-2">
                               {[1, 2, 3, 4, 5].map(star => (
                                 <i
                                   key={star}
-                                  className={`${star <= rating ? 'ri-star-fill text-amber-400' : 'ri-star-line text-gray-300'} text-sm`}
+                                  className={`${star <= rating ? 'ri-star-fill text-brand-gold' : 'ri-star-line text-brand-taupe'} text-sm`}
                                 ></i>
                               ))}
                               <span className="text-sm">& Up</span>
@@ -381,7 +381,7 @@ function ShopContent() {
                         // Re-fetch handled by effect dependencies
                         setIsFilterOpen(false);
                       }}
-                      className="w-full bg-gray-900 hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                      className="w-full bg-brand-bronze hover:bg-brand-caramel text-brand-cream py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
                     >
                       Show Results
                     </button>
@@ -392,19 +392,19 @@ function ShopContent() {
 
             <div className="flex-1">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-                <p className="text-gray-600">
-                  Showing <span className="font-semibold text-gray-900">{products.length}</span> of <span className="font-semibold text-gray-900">{totalProducts}</span> products
+                <p className="text-brand-ink/70">
+                  Showing <span className="font-semibold text-brand-ink">{products.length}</span> of <span className="font-semibold text-brand-ink">{totalProducts}</span> products
                 </p>
 
                 <div className="flex items-center space-x-3">
-                  <label className="text-sm text-gray-600 whitespace-nowrap">Sort by:</label>
+                  <label className="text-sm text-brand-ink/70 whitespace-nowrap">Sort by:</label>
                   <select
                     value={sortBy}
                     onChange={(e) => {
                       setSortBy(e.target.value);
                       setPage(1);
                     }}
-                    className="px-4 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm bg-white cursor-pointer"
+                    className="px-4 py-2 pr-8 border border-brand-taupe rounded-lg focus:ring-2 focus:ring-brand-caramel focus:border-brand-caramel text-sm bg-brand-cream cursor-pointer text-brand-ink"
                   >
                     <option value="popular">Most Popular</option>
                     <option value="new">Newest</option>
@@ -434,12 +434,12 @@ function ShopContent() {
                       <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 bg-red-50 rounded-full">
                         <i className="ri-error-warning-line text-4xl text-red-500"></i>
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">We couldn&apos;t load products</h3>
-                      <p className="text-gray-600 mb-2">There was a problem reaching our catalogue. Please try again.</p>
-                      <p className="text-xs text-gray-400 mb-8 break-all max-w-md mx-auto">{fetchError}</p>
+                      <h3 className="text-2xl font-bold text-brand-ink mb-2">We couldn&apos;t load products</h3>
+                      <p className="text-brand-ink/70 mb-2">There was a problem reaching our catalogue. Please try again.</p>
+                      <p className="text-xs text-brand-ink/40 mb-8 break-all max-w-md mx-auto">{fetchError}</p>
                       <button
                         onClick={handleRetry}
-                        className="inline-flex items-center bg-gray-900 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                        className="inline-flex items-center bg-brand-bronze hover:bg-brand-caramel text-brand-cream px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
                       >
                         <i className="ri-refresh-line mr-2"></i>
                         Retry
@@ -449,11 +449,11 @@ function ShopContent() {
 
                   {products.length === 0 && !fetchError && (
                     <div className="text-center py-20">
-                      <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 bg-gray-100 rounded-full">
-                        <i className="ri-inbox-line text-4xl text-gray-400"></i>
+                      <div className="w-20 h-20 flex items-center justify-center mx-auto mb-6 bg-brand-ice rounded-full">
+                        <i className="ri-inbox-line text-4xl text-brand-taupe"></i>
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">No Products Found</h3>
-                      <p className="text-gray-600 mb-8">Try adjusting your filters to find what you&apos;re looking for</p>
+                      <h3 className="text-2xl font-bold text-brand-ink mb-2">No Products Found</h3>
+                      <p className="text-brand-ink/70 mb-8">Try adjusting your filters to find what you&apos;re looking for</p>
                       <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
                         <button
                           onClick={() => {
@@ -462,13 +462,13 @@ function ShopContent() {
                             setSelectedRating(0);
                             setPage(1);
                           }}
-                          className="inline-flex items-center bg-gray-900 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                          className="inline-flex items-center bg-brand-bronze hover:bg-brand-caramel text-brand-cream px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
                         >
                           Clear All Filters
                         </button>
                         <button
                           onClick={handleRetry}
-                          className="inline-flex items-center bg-white border border-gray-300 hover:border-gray-900 text-gray-700 hover:text-gray-900 px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                          className="inline-flex items-center bg-brand-cream border border-brand-taupe hover:border-brand-caramel text-brand-ink/80 hover:text-brand-caramel px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
                         >
                           <i className="ri-refresh-line mr-2"></i>
                           Refresh
@@ -486,22 +486,22 @@ function ShopContent() {
                     <button
                       onClick={() => setPage(p => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-10 h-10 flex items-center justify-center border border-brand-taupe rounded-lg hover:bg-brand-caramel/15 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <i className="ri-arrow-left-s-line text-xl text-gray-700"></i>
+                      <i className="ri-arrow-left-s-line text-xl text-brand-ink/80"></i>
                     </button>
 
                     {/* Simple page numbers - condensed for brevity */}
-                    <span className="px-4 font-medium text-gray-700">
+                    <span className="px-4 font-medium text-brand-ink/80">
                       Page {page} of {totalPages}
                     </span>
 
                     <button
                       onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
-                      className="w-10 h-10 flex items-center justify-center border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-10 h-10 flex items-center justify-center border border-brand-taupe rounded-lg hover:bg-brand-caramel/15 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      <i className="ri-arrow-right-s-line text-xl text-gray-700"></i>
+                      <i className="ri-arrow-right-s-line text-xl text-brand-ink/80"></i>
                     </button>
                   </div>
                 </div>
@@ -516,7 +516,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-12 h-12 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div></div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-brand-cream"><div className="w-12 h-12 border-4 border-brand-bronze border-t-transparent rounded-full animate-spin"></div></div>}>
       <ShopContent />
     </Suspense>
   );

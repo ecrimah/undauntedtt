@@ -39,12 +39,12 @@ export default function PWASplash() {
           className="drop-shadow-2xl w-44 sm:w-56 h-auto"
         />
       </div>
-      <h1 className="text-white text-lg font-medium font-sans mb-2 opacity-90">{getSiteName()}</h1>
-      <p className="text-blue-200 text-sm font-medium mb-8">{process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Curated jewelry from Adenta, Ghana'}</p>
+      <h1 className="text-brand-cream text-lg font-medium font-sans mb-2 opacity-95">{getSiteName()}</h1>
+      <p className="text-brand-cream/80 text-sm font-medium mb-8">{process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Curated jewelry from Adenta, Ghana'}</p>
       <div className="pwa-splash-dots flex gap-1.5">
-        <span className="w-2 h-2 bg-white rounded-full" />
-        <span className="w-2 h-2 bg-white rounded-full" />
-        <span className="w-2 h-2 bg-white rounded-full" />
+        <span className="w-2 h-2 bg-brand-cream rounded-full" />
+        <span className="w-2 h-2 bg-brand-cream rounded-full" />
+        <span className="w-2 h-2 bg-brand-cream rounded-full" />
       </div>
     </div>
   );

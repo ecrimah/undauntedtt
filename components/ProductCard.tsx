@@ -83,7 +83,7 @@ export default function ProductCard({
 
   return (
     <div className="group bg-transparent rounded-lg h-full flex flex-col hover-lift">
-      <Link href={`/product/${slug}`} className="relative block aspect-[3/4] overflow-hidden rounded-lg sm:rounded-xl bg-gray-100 mb-2 sm:mb-4 shadow-sm group-hover:shadow-xl transition-all duration-300">
+      <Link href={`/product/${slug}`} className="relative block aspect-[3/4] overflow-hidden rounded-lg sm:rounded-xl bg-brand-ice mb-2 sm:mb-4 shadow-sm group-hover:shadow-xl transition-all duration-300">
         <LazyImage
           src={image}
           alt={name}
@@ -92,7 +92,7 @@ export default function ProductCard({
 
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1.5 sm:gap-2">
           {badge && (
-            <span className="bg-white/90 backdrop-blur text-gray-900 border border-gray-100 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-md shadow-sm">
+            <span className="bg-brand-cream/95 backdrop-blur text-brand-bronze border border-brand-taupe/40 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-md shadow-sm">
               {badge}
             </span>
           )}
@@ -104,15 +104,15 @@ export default function ProductCard({
         </div>
 
         {!inStock && (
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-            <span className="bg-gray-900 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium">Out of Stock</span>
+          <div className="absolute inset-0 bg-brand-cream/60 backdrop-blur-[2px] flex items-center justify-center">
+            <span className="bg-brand-bronze text-brand-cream px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium">Out of Stock</span>
           </div>
         )}
 
         {inStock && (
           <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 hidden lg:block">
             {hasVariants ? (
-              <span className="w-full bg-white text-gray-900 hover:bg-gray-900 hover:text-white py-3 rounded-lg font-medium shadow-lg transition-colors flex items-center justify-center space-x-2 text-sm">
+              <span className="w-full bg-brand-cream text-brand-bronze hover:bg-brand-caramel hover:text-brand-cream py-3 rounded-lg font-medium shadow-lg transition-colors flex items-center justify-center space-x-2 text-sm">
                 <i className="ri-list-check"></i>
                 <span>Select Options</span>
               </span>
@@ -122,7 +122,7 @@ export default function ProductCard({
                   e.preventDefault();
                   addToCart({ id, name, price, image, quantity: moq, slug, maxStock, moq });
                 }}
-                className="w-full bg-white text-gray-900 hover:bg-gray-900 hover:text-white py-3 rounded-lg font-medium shadow-lg transition-colors flex items-center justify-center space-x-2 text-sm"
+                className="w-full bg-brand-cream text-brand-bronze hover:bg-brand-caramel hover:text-brand-cream py-3 rounded-lg font-medium shadow-lg transition-colors flex items-center justify-center space-x-2 text-sm"
               >
                 <i className="ri-shopping-cart-2-line"></i>
                 <span>{moq > 1 ? `Add ${moq} to Cart` : 'Quick Add'}</span>
@@ -134,7 +134,7 @@ export default function ProductCard({
 
       <div className="flex flex-col flex-grow px-0.5 sm:px-0">
         <Link href={`/product/${slug}`}>
-          <h3 className="font-serif text-sm sm:text-base md:text-lg leading-tight text-gray-900 mb-1 group-hover:text-blue-800 transition-colors line-clamp-2">
+          <h3 className="font-serif text-sm sm:text-base md:text-lg leading-tight text-brand-ink mb-1 group-hover:text-brand-caramel transition-colors line-clamp-2">
             {name}
           </h3>
         </Link>
@@ -151,26 +151,26 @@ export default function ProductCard({
                 }}
                 className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full border transition-all duration-200 flex-shrink-0 ${
                   activeColor === color.name
-                    ? 'ring-2 ring-offset-1 ring-blue-600 scale-110'
+                    ? 'ring-2 ring-offset-1 ring-brand-bronze scale-110'
                     : 'hover:scale-110'
-                } ${color.hex === '#FFFFFF' ? 'border-gray-300' : 'border-transparent'}`}
+                } ${color.hex === '#FFFFFF' ? 'border-brand-taupe' : 'border-transparent'}`}
                 style={{ backgroundColor: color.hex }}
               />
             ))}
             {colorVariants.length > MAX_SWATCHES && (
-              <span className="text-[10px] sm:text-xs text-gray-400 ml-0.5">+{colorVariants.length - MAX_SWATCHES}</span>
+              <span className="text-[10px] sm:text-xs text-brand-ink/40 ml-0.5">+{colorVariants.length - MAX_SWATCHES}</span>
             )}
           </div>
         )}
 
         <div className="flex items-baseline space-x-1.5 sm:space-x-2 mb-1.5 sm:mb-2">
           {hasVariants && minVariantPrice ? (
-            <span className="text-gray-900 font-semibold text-sm sm:text-base">From {formatPrice(minVariantPrice)}</span>
+            <span className="text-brand-ink font-semibold text-sm sm:text-base">From {formatPrice(minVariantPrice)}</span>
           ) : (
-            <span className="text-gray-900 font-semibold text-sm sm:text-base">{formatPrice(price)}</span>
+            <span className="text-brand-ink font-semibold text-sm sm:text-base">{formatPrice(price)}</span>
           )}
           {originalPrice && (
-            <span className="text-xs sm:text-sm text-gray-400 line-through">{formatPrice(originalPrice)}</span>
+            <span className="text-xs sm:text-sm text-brand-ink/40 line-through">{formatPrice(originalPrice)}</span>
           )}
         </div>
 
@@ -178,7 +178,7 @@ export default function ProductCard({
           {hasVariants ? (
             <Link
               href={`/product/${slug}`}
-              className="w-full border border-gray-200 text-gray-900 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 active:bg-gray-100 transition-colors flex items-center justify-center space-x-1"
+              className="w-full border border-brand-taupe/60 text-brand-ink py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-brand-caramel/15 active:bg-brand-taupe/20 transition-colors flex items-center justify-center space-x-1"
             >
               <i className="ri-list-check text-xs sm:text-sm"></i>
               <span>Select</span>
@@ -190,7 +190,7 @@ export default function ProductCard({
                 addToCart({ id, name, price, image, quantity: moq, slug, maxStock, moq });
               }}
               disabled={!inStock}
-              className="w-full border border-gray-200 text-gray-900 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-50 active:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full border border-brand-taupe/60 text-brand-ink py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium hover:bg-brand-caramel/15 active:bg-brand-taupe/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {moq > 1 ? `Add ${moq}` : 'Add to Cart'}
             </button>

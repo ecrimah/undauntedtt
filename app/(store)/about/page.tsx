@@ -78,8 +78,8 @@ export default function AboutPage() {
 
       <div id="our-story" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid md:grid-cols-2 gap-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-blue-50 p-10 rounded-3xl border border-blue-100">
-              <div className="w-16 h-16 bg-blue-700 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+            <div className="bg-brand-ice p-10 rounded-3xl border border-brand-caramel/25">
+              <div className="w-16 h-16 bg-brand-bronze rounded-2xl flex items-center justify-center mb-8 shadow-lg">
                 <i className="ri-store-2-line text-3xl text-white"></i>
               </div>
               <h3 className="text-3xl font-bold text-gray-900 mb-4">Everything in One Place</h3>
@@ -109,8 +109,8 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div key={index} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                  <i className={`${value.icon} text-2xl text-blue-700`}></i>
+                <div className="w-14 h-14 bg-brand-caramel/25 rounded-full flex items-center justify-center mb-6">
+                  <i className={`${value.icon} text-2xl text-brand-bronze`}></i>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{value.description}</p>
@@ -121,15 +121,15 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <div className="bg-blue-900 py-24">
+      <div className="bg-brand-bronze py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to find your next treasure?</h2>
-          <p className="text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xl text-brand-caramel/25 mb-10 leading-relaxed max-w-2xl mx-auto">
             Browse our jewelry catalogue — wholesale and retail. Visit us in Adenta or message us on WhatsApp for orders and bespoke requests.
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-3 bg-white text-blue-900 px-10 py-5 rounded-full font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+            className="inline-flex items-center gap-3 bg-white text-brand-bronze px-10 py-5 rounded-full font-bold text-lg hover:bg-brand-caramel/15 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
           >
             Start Shopping
             <i className="ri-arrow-right-line"></i>

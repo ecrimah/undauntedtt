@@ -25,9 +25,9 @@ export default function WhoWeAreSection() {
               <div className="pt-4">
                 <Link 
                   href="/about" 
-                  className="inline-flex items-center text-blue-800 font-medium hover:text-blue-900 transition-colors group"
+                  className="inline-flex items-center text-brand-bronze font-medium hover:text-brand-caramel transition-colors group"
                 >
-                  <span className="border-b border-transparent group-hover:border-blue-900 transition-colors">Read Our Full Story</span>
+                  <span className="border-b border-transparent group-hover:border-brand-caramel transition-colors">Read Our Full Story</span>
                   <i className="ri-arrow-right-line ml-2 transition-transform group-hover:translate-x-1"></i>
                 </Link>
               </div>
@@ -45,7 +45,7 @@ export default function WhoWeAreSection() {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
               {/* Decorative Overlay */}
-              <div className="absolute inset-0 bg-blue-900/10 group-hover:bg-transparent transition-colors duration-300"></div>
+              <div className="absolute inset-0 bg-brand-bronze/10 group-hover:bg-transparent transition-colors duration-300"></div>
             </div>
           </AnimatedSection>
 

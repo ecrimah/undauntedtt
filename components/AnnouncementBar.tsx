@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
-import { sanitizeAddressDisplay } from '@/lib/site-defaults';
 
 interface Banner {
     id: string;
@@ -72,16 +71,10 @@ export default function AnnouncementBar() {
 
     const visibleBanners = banners.filter(b => !dismissed.has(b.id));
 
+    // No custom banners → render nothing. Admins can publish one from the
+    // admin dashboard whenever they want a top-of-page strip again.
     if (visibleBanners.length === 0) {
-        // Show default banner if no custom banners
-        return (
-            <div className="bg-blue-800 text-white py-2 text-center text-sm">
-                <p>
-              {process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Curated jewelry from Adenta, Ghana'} ·{' '}
-              {sanitizeAddressDisplay(process.env.NEXT_PUBLIC_CONTACT_ADDRESS) || 'Shop with us'}
-            </p>
-            </div>
-        );
+        return null;
     }
 
     const currentBanner = visibleBanners[currentIndex % visibleBanners.length];

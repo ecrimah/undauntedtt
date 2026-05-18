@@ -10,7 +10,18 @@ import AnimatedSection, { AnimatedGrid } from '@/components/AnimatedSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import { usePageTitle } from '@/hooks/usePageTitle';
 
-const HOME_CATEGORY_TINTS = ['bg-blue-900', 'bg-rose-900', 'bg-amber-900', 'bg-stone-900', 'bg-emerald-900', 'bg-violet-900', 'bg-orange-900', 'bg-slate-900'];
+// Decorative `mix-blend-overlay` tints behind category images — kept warm
+// so they harmonize with the bronze/cream palette rather than fight it.
+const HOME_CATEGORY_TINTS = [
+  'bg-amber-900',
+  'bg-stone-900',
+  'bg-orange-900',
+  'bg-rose-900',
+  'bg-yellow-900',
+  'bg-amber-800',
+  'bg-stone-800',
+  'bg-orange-800',
+];
 
 export default function Home() {
   usePageTitle('');
@@ -147,7 +158,7 @@ export default function Home() {
     if (activeBanners.length === 0) return null;
 
     return (
-      <div className="bg-blue-900 text-white py-2 overflow-hidden relative">
+      <div className="bg-brand-bronze text-brand-cream py-2 overflow-hidden relative">
         <div className="flex animate-marquee whitespace-nowrap">
           {activeBanners.concat(activeBanners).map((banner, index) => (
             <span key={index} className="mx-8 text-sm font-medium tracking-wide flex items-center">
@@ -186,7 +197,7 @@ export default function Home() {
             image: '/hero-slide-1.png',
             alt: 'Model wearing layered gold hoop earrings — statement jewelry from Undaunted Treasure Trove',
             tag: 'New arrivals',
-            heading: <>Treasures, <br /><span className="italic font-light text-amber-100">curated for you</span></>,
+            heading: <>Treasures, <br /><span className="italic font-light text-brand-gold">curated for you</span></>,
             subtext: 'Handpicked earrings, necklaces, bracelets and more — delivered across Ghana.',
             cta: { text: 'Shop now', href: '/shop' },
             cta2: { text: 'Our story', href: '/about' },
@@ -196,7 +207,7 @@ export default function Home() {
             image: '/hero-slide-2.png',
             alt: 'Model in chunky gold hoops and a delicate initial pendant — Undaunted Treasure Trove signature looks',
             tag: 'Statement pieces',
-            heading: <>Bold, beautiful, <br /><span className="italic font-light text-amber-100">unmistakably you</span></>,
+            heading: <>Bold, beautiful, <br /><span className="italic font-light text-brand-gold">unmistakably you</span></>,
             subtext: 'Statement jewelry that makes everyday outfits feel special. Wholesale available.',
             cta: { text: 'Browse shop', href: '/shop' },
             cta2: { text: 'Categories', href: '/categories' },
@@ -206,7 +217,7 @@ export default function Home() {
             image: '/hero-slide-3.png',
             alt: 'Model wearing a heavy gold curb-link back chain — bold body jewelry from Undaunted Treasure Trove',
             tag: 'Body chains',
-            heading: <>Worn <br /><span className="italic font-light text-amber-100">your way</span></>,
+            heading: <>Worn <br /><span className="italic font-light text-brand-gold">your way</span></>,
             subtext: 'Hand chains, waist chains and back chains — sculptural pieces, styled in Adenta, shipped nationwide.',
             cta: { text: 'Shop collection', href: '/shop' },
             cta2: { text: 'Contact', href: '/contact' },
@@ -230,9 +241,10 @@ export default function Home() {
               />
             </div>
 
-            {/* Premium Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            {/* Premium Gradient Overlay — bronze-tinted so the hero feels warm,
+                not film-noir. */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2a1810]/80 via-[#2a1810]/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2a1810]/70 via-transparent to-transparent"></div>
 
             {/* Slide Content */}
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-5 sm:px-6 md:px-16 max-w-7xl mx-auto h-full sm:mt-[-20px]">
@@ -260,7 +272,7 @@ export default function Home() {
                 <div className={`flex flex-row items-center justify-center gap-3 sm:gap-6 transition-all duration-700 delay-400 ${index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                   <Link
                     href={slide.cta.href}
-                    className="group relative px-5 sm:px-10 py-2.5 sm:py-4 bg-white text-gray-950 rounded-full font-medium text-sm sm:text-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.5)] hover:bg-gray-100 hover:scale-105"
+                    className="group relative px-5 sm:px-10 py-2.5 sm:py-4 bg-brand-cream text-brand-bronze rounded-full font-medium text-sm sm:text-lg overflow-hidden transition-all hover:shadow-[0_0_24px_rgba(239,231,222,0.45)] hover:bg-white hover:scale-105"
                   >
                     <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
                       {slide.cta.text} <i className="ri-arrow-right-line transition-transform group-hover:translate-x-1"></i>
@@ -268,7 +280,7 @@ export default function Home() {
                   </Link>
                   <Link
                     href={slide.cta2.href}
-                    className="group px-5 sm:px-10 py-2.5 sm:py-4 bg-white/10 border border-white/30 text-white rounded-full font-medium text-sm sm:text-lg backdrop-blur-md hover:bg-white/20 hover:border-white/50 transition-all hover:scale-105"
+                    className="group px-5 sm:px-10 py-2.5 sm:py-4 bg-brand-cream/10 border border-brand-cream/30 text-brand-cream rounded-full font-medium text-sm sm:text-lg backdrop-blur-md hover:bg-brand-cream/20 hover:border-brand-cream/60 transition-all hover:scale-105"
                   >
                     {slide.cta2.text}
                   </Link>
@@ -284,7 +296,7 @@ export default function Home() {
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-1 transition-all duration-300 ${currentSlide === i ? 'w-8 sm:w-12 bg-white' : 'w-4 sm:w-6 bg-white/40 hover:bg-white/60'}`}
+              className={`h-1 transition-all duration-300 ${currentSlide === i ? 'w-8 sm:w-12 bg-brand-cream' : 'w-4 sm:w-6 bg-brand-cream/40 hover:bg-brand-cream/70'}`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
@@ -292,7 +304,7 @@ export default function Home() {
 
         {/* Decoration */}
         <div className="absolute bottom-10 right-6 md:right-16 z-20 hidden md:block">
-          <div className="text-white/40 text-sm font-light tracking-widest vertical-text transform rotate-180" style={{ writingMode: 'vertical-rl' }}>
+          <div className="text-brand-cream/40 text-sm font-light tracking-widest vertical-text transform rotate-180" style={{ writingMode: 'vertical-rl' }}>
             EST. 2026 — COLLECTION
           </div>
         </div>
@@ -300,22 +312,22 @@ export default function Home() {
       </section>
 
       {homeCategories.length > 0 && (
-      <section className="py-12 sm:py-20 md:py-32 bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+      <section className="py-12 sm:py-20 md:py-32 bg-brand-cream relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-taupe/40 to-transparent"></div>
 
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
           <AnimatedSection className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-16 gap-3 sm:gap-6">
             <div className="relative">
-              <span className="block text-xs sm:text-sm font-medium tracking-[0.2em] text-gray-500 mb-2 sm:mb-3 uppercase">Olfactory Families</span>
-              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl text-gray-900 leading-[1.1]">
-                Shop by <span className="italic text-gray-400">Category</span>
+              <span className="block text-xs sm:text-sm font-medium tracking-[0.2em] text-brand-bronze mb-2 sm:mb-3 uppercase">Curated Collections</span>
+              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl text-brand-ink leading-[1.1]">
+                Shop by <span className="italic text-brand-caramel">Category</span>
               </h2>
             </div>
             <div className="flex items-center gap-6">
-              <p className="hidden md:block text-gray-500 max-w-xs text-right font-light leading-relaxed">
+              <p className="hidden md:block text-brand-ink/60 max-w-xs text-right font-light leading-relaxed">
                 Explore our curated jewelry collection, organised by style and category.
               </p>
-              <Link href="/categories" className="group hidden sm:flex items-center justify-center w-14 h-14 rounded-full border border-gray-200 hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300">
+              <Link href="/categories" className="group hidden sm:flex items-center justify-center w-14 h-14 rounded-full border border-brand-taupe text-brand-bronze hover:border-brand-caramel hover:bg-brand-caramel hover:text-brand-cream transition-all duration-300">
                 <i className="ri-arrow-right-line text-xl transition-transform group-hover:translate-x-1"></i>
               </Link>
             </div>
@@ -324,7 +336,7 @@ export default function Home() {
           <AnimatedGrid className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
               {homeCategories.map((category) => (
               <Link href={`/shop?category=${encodeURIComponent(category.slug)}`} key={category.id} className="group block h-full w-full">
-                <div className="relative aspect-[3/4] overflow-hidden isolate bg-gray-900 shadow-lg sm:shadow-2xl rounded-2xl sm:rounded-3xl">
+                <div className="relative aspect-[3/4] overflow-hidden isolate bg-brand-bronze shadow-lg sm:shadow-2xl rounded-2xl sm:rounded-3xl">
 
                   <div className="absolute inset-0 transition-transform duration-[1500ms] ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100">
                     <Image
@@ -397,11 +409,13 @@ export default function Home() {
       )}
 
       {/* Featured Products */}
-      <section className="py-16 md:py-24 bg-stone-50">
+      <section className="py-16 md:py-24 bg-brand-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-gray-900 mb-4">Featured Products</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Top picks from our latest arrivals</p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-brand-ink mb-4">
+              Featured <span className="italic text-brand-caramel">Products</span>
+            </h2>
+            <p className="text-brand-ink/60 text-lg max-w-2xl mx-auto">Top picks from our latest arrivals</p>
           </AnimatedSection>
 
           {loading ? (
@@ -460,7 +474,7 @@ export default function Home() {
           <div className="text-center mt-16">
             <Link
               href="/shop"
-              className="inline-flex items-center justify-center bg-gray-900 text-white px-10 py-4 rounded-full font-medium hover:bg-blue-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 btn-animate"
+              className="inline-flex items-center justify-center bg-brand-bronze text-brand-cream px-10 py-4 rounded-full font-medium hover:bg-brand-caramel transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 btn-animate"
             >
               View All Products
             </Link>

@@ -50,16 +50,16 @@ export default function PWAPrompt() {
 
       {/* Install Sheet */}
       <div className="fixed bottom-0 left-0 right-0 z-[9999] pwa-prompt-sheet">
-        <div className="bg-white rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.15)] overflow-hidden max-w-lg mx-auto">
+        <div className="bg-brand-cream rounded-t-3xl shadow-[0_-8px_40px_rgba(0,0,0,0.15)] overflow-hidden max-w-lg mx-auto">
           {/* Drag handle */}
           <div className="flex justify-center pt-3 pb-2">
-            <div className="w-10 h-1 bg-gray-300 rounded-full" />
+            <div className="w-10 h-1 bg-brand-taupe rounded-full" />
           </div>
 
           <div className="px-6 pb-8">
             {/* App icon and info */}
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-2xl shadow-lg flex-shrink-0 bg-[#172554] flex items-center justify-center overflow-hidden p-2">
+              <div className="w-16 h-16 rounded-2xl shadow-lg flex-shrink-0 bg-brand-bronze flex items-center justify-center overflow-hidden p-2">
                 <Image
                   src="/icon-192.png"
                   alt={getWordmark()}
@@ -69,13 +69,13 @@ export default function PWAPrompt() {
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-gray-900 text-lg truncate">{getWordmark()}</h3>
-                <p className="text-sm text-gray-500">{getSiteTagline() || 'Add to home screen'}</p>
+                <h3 className="font-bold text-brand-ink text-lg truncate">{getWordmark()}</h3>
+                <p className="text-sm text-brand-ink/60">{getSiteTagline() || 'Add to home screen'}</p>
                 <div className="flex items-center gap-1 mt-1">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <i key={star} className="ri-star-fill text-amber-400 text-xs" />
+                    <i key={star} className="ri-star-fill text-brand-gold text-xs" />
                   ))}
-                  <span className="text-xs text-gray-400 ml-1">Shopping</span>
+                  <span className="text-xs text-brand-ink/50 ml-1">Shopping</span>
                 </div>
               </div>
             </div>
@@ -89,12 +89,12 @@ export default function PWAPrompt() {
               ].map((feature) => (
                 <div
                   key={feature.label}
-                  className="bg-gray-50 rounded-xl p-3 text-center"
+                  className="bg-brand-ice rounded-xl p-3 text-center"
                 >
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <i className={`${feature.icon} text-blue-700 text-lg`} />
+                  <div className="w-10 h-10 bg-brand-caramel/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <i className={`${feature.icon} text-brand-bronze text-lg`} />
                   </div>
-                  <span className="text-xs font-medium text-gray-600">{feature.label}</span>
+                  <span className="text-xs font-medium text-brand-ink/70">{feature.label}</span>
                 </div>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function PWAPrompt() {
             {/* CTA */}
             <button
               onClick={handleInstall}
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white py-4 px-6 rounded-2xl font-semibold text-base transition-all active:scale-[0.98] shadow-lg shadow-blue-700/20 flex items-center justify-center gap-2"
+              className="w-full bg-brand-bronze hover:bg-brand-caramel text-brand-cream py-4 px-6 rounded-2xl font-semibold text-base transition-all active:scale-[0.98] shadow-lg shadow-brand-bronze/30 flex items-center justify-center gap-2"
             >
               <i className="ri-download-2-line text-xl" />
               Add to Home Screen
@@ -110,7 +110,7 @@ export default function PWAPrompt() {
 
             <button
               onClick={handleDismiss}
-              className="w-full mt-3 py-3 text-gray-500 font-medium text-sm hover:text-gray-700 transition-colors"
+              className="w-full mt-3 py-3 text-brand-ink/60 font-medium text-sm hover:text-brand-caramel transition-colors"
             >
               Maybe Later
             </button>
